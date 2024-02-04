@@ -1,21 +1,10 @@
-const { log } = require("console");
+const socket = io("http://localhost:3000");
 
-const socket = new WebSocket("ws://localhost:3000");
+socket.on('connect', data => {
+  socket.emit('welcome-client' ,' Hello serevr , I am client' )
+  socket.on('welcome-server' , data => {
+    console.log(data);
+  } )
+})
 
-socket.onopen = (event) => {
-  socket.send("hello server");
-};
 
-socket.onmessage = (event) => {
-  socket.send("Hello server i want to read your data");
-  document.write(event.data);
-};
-
-socket.onclose = (event) => {
-  socket.send("I quit from socket");
-  console.log(event.data);
-};
-
-socket.onerror = (error) => {
-    console.log(error.message);
-  };

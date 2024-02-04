@@ -1,24 +1,19 @@
 const http = require("http");
 const WebSocket = require("ws");
 const server = http.createServer();
-const ws = new WebSocket.Server({ server });
-ws.on("headers", (headers, req) => {
-  console.log(headers);
+// const ws = new WebSocket.Server({ server });
+const socketIO = require("socket.io");
+const io = socketIO(server, {
+  cors: {
+    origin: "*",
+  },
 });
 
-ws.on("connection", (socket, req) => {
-  socket.on("message", (data) => {
-    console.log(data.toString());
+io.on("connection", (socket) => {
+  socket.emit("welcome-server", "Hello client , I am server");
+  socket.on("welcome-client", (data) => {
+    console.log(data);
   });
-  socket.send("Hello client");
-});
-
-ws.on("error", (error) => {
-    console.log(error.message);
-  });
-
-ws.on("close", () => {
-  console.log("A client oeft the server");
 });
 
 server.listen(3000, () => console.log("http://localhost:3000"));
