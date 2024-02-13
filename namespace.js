@@ -1,4 +1,4 @@
-//client's namespace's
+//Client's namespace's
 const teachersSocket = io("http://localhost:3000/teachers");
 teachersSocket.on("connect", (data) => {
   teachersSocket.emit("teachersClient", " message from teachers namespace");
@@ -16,7 +16,7 @@ studentsSocket.on("connect", (data) => {
   });
 });
 
-//server namespace's
+//Server namespace's
 io.of("/teachers").on("connection", (socket) => {
   socket.emit("techersServer", "Hello teachers , I am server");
   socket.on("teachersClient", (data) => {
