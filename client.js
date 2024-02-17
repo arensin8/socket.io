@@ -24,6 +24,10 @@ socket.on("connect", (data) => {
     if (!message) throw alert("Text box cant be empty");
     socket.emit("clientMessage", message);
     textBox.value = "";
+    // let count = 0;
+    // setInterval(() => {
+    //   socket.volatile.emit("ping", count++);
+    // }, 1000);
   });
 });
 

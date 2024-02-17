@@ -13,8 +13,20 @@ const io = socketIO(server, {
 
 io.on("connection", (socket) => {
   socket.on("clientMessage", (data) => {
-    io.emit('globalMessage', data)
+    io.emit("globalMessage", data);
   });
+  
+  socket.join(["React", "Next.Js"]);
+  socket.leave("Next.Js");
+  socket.broadcast.emit('event' , 'message')
+  socket.on('disconnecting' , reason => {
+
+  })
+  socket.on('disconnect' , data => {
+    
+  })
+  io.to('React').emit("new user added")
+  console.log(socket.rooms);
 });
 
 server.listen(3000, () => console.log("http://localhost:3000"));
